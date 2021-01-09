@@ -54,19 +54,34 @@ const JokesList = (props) => {
 
   const ListOfJokes = () => {
     if (props.category === null) {
-      {
-        return favoriteJokes.map((j) => (
-          <div>
-            <p>{j[1]}</p>
-             <i
-              className="text-primary pt-3"
-              onClick={(e) => removeFavoriteJoke(j[0], j[1])}
-            >
-              Odebrat
-            </i>{' '}
-          </div>
-        ));
-      }
+      return (
+        <div>
+          <p>Počet oblíbených vtipů {localStorage.length}</p>
+          {favoriteJokes.map((j) => (
+            <div>
+              <p>{j[1]}</p>
+              <i
+                className="text-primary pt-3"
+                onClick={(e) => removeFavoriteJoke(j[0], j[1])}
+              >
+                Odebrat
+              </i>{' '}
+            </div>
+          ))}
+        </div>
+      );
+
+      /*favoriteJokes.map((j) => (
+        <div>
+          <p>{j[1]}</p>
+          <i
+            className="text-primary pt-3"
+            onClick={(e) => removeFavoriteJoke(j[0], j[1])}
+          >
+            Odebrat
+          </i>{' '}
+        </div>
+      ));*/
     }
 
     return (
