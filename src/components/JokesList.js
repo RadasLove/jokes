@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const JokesList = (props) => {
   const [Jokes, setJokes] = useState('');
+  const [Reload, setReload] = useState(false);
 
   const options = {
     method: 'GET',
@@ -22,12 +23,16 @@ const JokesList = (props) => {
     },
   };
 
-  const favoriteJokes = { ...localStorage };
-
-  console.log(test)
+  const favoriteJokes = Object.entries(localStorage);
 
   const addFavoriteJoke = (id, data) => {
     localStorage.setItem(id, data);
+    setReload(!Reload);
+  };
+
+  const removeFavoriteJoke = (id, data) => {
+    localStorage.removeItem(id, data);
+    setReload(!Reload);
   };
 
   useEffect(() => {
@@ -43,26 +48,52 @@ const JokesList = (props) => {
     return () => {};
   }, [props.category]);
 
-  return (
-    <div>
-      <Row>
-        {Jokes.jokes &&
-          Jokes.jokes.map((j) => {
-            return (
-              <Col sm={6} className="mb-5">
-                {j.joke}
-                <p
-                  className="text-primary pt-3"
-                  onClick={(e) => addFavoriteJoke("jokes", j.joke)}
-                >
-                  Přidat do oblíbených
-                </p>
-              </Col>
-            );
-          })}
-      </Row>
-    </div>
-  );
+  const ListOfJokes = () => {
+    if (props.category === null) {
+      {
+        return favoriteJokes.map((j) => <p>{j[1]}</p>);
+      }
+    }
+
+    return (
+      <div>
+        <Row>
+          {Jokes.jokes &&
+            Jokes.jokes.map((j) => {
+              if (localStorage.getItem(j.id) === null) {
+                return (
+                  <Col sm={6} className="mb-5">
+                    {j.joke}
+
+                    <p
+                      className="text-primary pt-3"
+                      onClick={(e) => addFavoriteJoke(j.id, j.joke)}
+                    >
+                      Přidat do oblíbených
+                    </p>
+                  </Col>
+                );
+              }
+
+              return (
+                <Col sm={6} className="mb-5">
+                  {j.joke}
+
+                  <p
+                    className="text-primary pt-3"
+                    onClick={(e) => removeFavoriteJoke(j.id, j.joke)}
+                  >
+                    Odebrat
+                  </p>
+                </Col>
+              );
+            })}
+        </Row>
+      </div>
+    );
+  };
+
+  return ListOfJokes();
 };
 
 export default JokesList;

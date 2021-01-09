@@ -3,16 +3,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import JokesList from '../components/JokesList';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [Category, setCategory] = useState('any');
   const [Active, setActive] = useState(1);
 
+  const favoritejokes = Object.entries(localStorage);
+
   const filtr = (category, active) => {
     setCategory(category);
     setActive(active);
   };
+
 
   return (
     <section>
@@ -55,7 +58,12 @@ const Home = () => {
               >
                 Ostatní
               </ListGroup.Item>
-              <ListGroup.Item><Link to="oblibene">Oblíbené</Link></ListGroup.Item>
+              <ListGroup.Item
+                onClick={(e) => filtr(null, 6)}
+                className={Active === 6 ? 'active' : null}
+              >
+                Oblíbené
+              </ListGroup.Item>
             </ListGroup>
           </div>
         </Col>
