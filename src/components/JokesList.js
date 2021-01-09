@@ -26,13 +26,17 @@ const JokesList = (props) => {
   const favoriteJokes = Object.entries(localStorage);
 
   const addFavoriteJoke = (id, data) => {
-    localStorage.setItem(id, data);
-    setReload(!Reload);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(id, data);
+      setReload(!Reload);
+    }
   };
 
   const removeFavoriteJoke = (id, data) => {
-    localStorage.removeItem(id, data);
-    setReload(!Reload);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(id, data);
+      setReload(!Reload);
+    }
   };
 
   useEffect(() => {
@@ -51,7 +55,17 @@ const JokesList = (props) => {
   const ListOfJokes = () => {
     if (props.category === null) {
       {
-        return favoriteJokes.map((j) => <p>{j[1]}</p>);
+        return favoriteJokes.map((j) => (
+          <div>
+            <p>{j[1]}</p>
+             <i
+              className="text-primary pt-3"
+              onClick={(e) => removeFavoriteJoke(j[0], j[1])}
+            >
+              Odebrat
+            </i>{' '}
+          </div>
+        ));
       }
     }
 

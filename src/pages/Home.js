@@ -16,7 +16,6 @@ const Home = () => {
     setActive(active);
   };
 
-
   return (
     <section>
       <Row>
