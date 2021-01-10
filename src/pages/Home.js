@@ -3,11 +3,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import JokesList from '../components/JokesList';
-import { Link } from 'react-router-dom';
+
 
 const Home = () => {
   const [Category, setCategory] = useState('any');
   const [Active, setActive] = useState(1);
+
 
   const favoritejokes = Object.entries(localStorage);
 
@@ -18,15 +19,14 @@ const Home = () => {
 
   return (
     <section>
-      <Row>
-        <Col sm={4}>
+      <Row className="text-center">
+        <Col sm={12}>
           {' '}
           <div>
-            <p className="lead">
-              <strong>Kategorie</strong>
-            </p>
-
-            <ListGroup variant="flush">
+            <h2>
+              <strong>Kategorie vtipu </strong>
+            </h2>
+            <ListGroup horizontal className="flex-wrap justify-content-center m-5 kategorie">
               <ListGroup.Item
                 onClick={(e) => filtr('Programming', 1)}
                 className={Active === 1 ? 'active' : null}
@@ -39,34 +39,30 @@ const Home = () => {
               >
                 Černý humor
               </ListGroup.Item>
+
               <ListGroup.Item
-                onClick={(e) => filtr('Spooky', 3)}
+                onClick={(e) => filtr('Pun', 3)}
                 className={Active === 3 ? 'active' : null}
-              >
-                Horové
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={(e) => filtr('Pun', 4)}
-                className={Active === 4 ? 'active' : null}
               >
                 Slovní hříčka
               </ListGroup.Item>
               <ListGroup.Item
-                onClick={(e) => filtr('Miscellaneous', 5)}
-                className={Active === 5 ? 'active' : null}
+                onClick={(e) => filtr('Miscellaneous', 4)}
+                className={Active === 4 ? 'active' : null}
               >
                 Ostatní
               </ListGroup.Item>
+
               <ListGroup.Item
-                onClick={(e) => filtr(null, 6)}
-                className={Active === 6 ? 'active' : null}
+                onClick={(e) => filtr(null, 5)}
+                className={Active === 5? 'active' : null}
               >
-                Oblíbené
+           Oblíbené
               </ListGroup.Item>
             </ListGroup>
           </div>
         </Col>
-        <Col sm={8}>
+        <Col sm={8} className="mx-auto">
           <JokesList category={Category} />
         </Col>
       </Row>

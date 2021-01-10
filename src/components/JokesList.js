@@ -3,9 +3,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
+
 const JokesList = (props) => {
   const [Jokes, setJokes] = useState('');
   const [Reload, setReload] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   const options = {
     method: 'GET',
@@ -49,6 +51,7 @@ const JokesList = (props) => {
       .catch(function (error) {
         console.error(error);
       });
+      setLoading(false)
     return () => {};
   }, [props.category]);
 
@@ -56,32 +59,24 @@ const JokesList = (props) => {
     if (props.category === null) {
       return (
         <div>
-          <p>Počet oblíbených vtipů {localStorage.length}</p>
+          <p>
+            <strong>Počet oblíbených vtipů {localStorage.length} </strong>
+          </p>
           {favoriteJokes.map((j) => (
             <div>
-              <p>{j[1]}</p>
-              <i
-                className="text-primary pt-3"
-                onClick={(e) => removeFavoriteJoke(j[0], j[1])}
-              >
-                Odebrat
-              </i>{' '}
+              <p>
+              <i>   {j[1]}{' '}</i>
+                <span
+                  className="text-primary pt-3"
+                  onClick={(e) => removeFavoriteJoke(j[0], j[1])}
+                >
+                  <br></br>Odebrat z oblíbených
+                </span>
+              </p>
             </div>
           ))}
         </div>
       );
-
-      /*favoriteJokes.map((j) => (
-        <div>
-          <p>{j[1]}</p>
-          <i
-            className="text-primary pt-3"
-            onClick={(e) => removeFavoriteJoke(j[0], j[1])}
-          >
-            Odebrat
-          </i>{' '}
-        </div>
-      ));*/
     }
 
     return (
@@ -92,7 +87,7 @@ const JokesList = (props) => {
               if (localStorage.getItem(j.id) === null) {
                 return (
                   <Col sm={6} className="mb-5">
-                    {j.joke}
+                   <i> {j.joke}</i>
 
                     <p
                       className="text-primary pt-3"
@@ -106,13 +101,13 @@ const JokesList = (props) => {
 
               return (
                 <Col sm={6} className="mb-5">
-                  {j.joke}
+                   <i>{j.joke}</i> 
 
                   <p
                     className="text-primary pt-3"
                     onClick={(e) => removeFavoriteJoke(j.id, j.joke)}
                   >
-                    Odebrat
+                    Odebrat z oblíbených
                   </p>
                 </Col>
               );
@@ -122,7 +117,13 @@ const JokesList = (props) => {
     );
   };
 
-  return ListOfJokes();
+  return Loading === true ? (
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Nahravám...</span>
+    </div>
+  ) : (
+    ListOfJokes()
+  );
 };
 
 export default JokesList;

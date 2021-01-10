@@ -1,24 +1,21 @@
 import React from 'react'
-import {Navbar} from 'react-bootstrap'
+import Nav from 'react-bootstrap/Nav'
 import Logo from '../../assets/img/logo.png'
 
 
 
-const Nav = () => {
+const Navigation = () => {
     return (
-        <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">
-          <img
-            alt=""
-            src={Logo}
-            width="120"
-            height="60"
-            className="d-inline-block align-top"
-          />{' '}
-      
-        </Navbar.Brand>
-      </Navbar>
+      <Nav className="justify-content-center pt-3" activeKey="/home">
+      <Nav.Item>
+        <Nav.Link href="/">Přehled Joku</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="/pridat-vtip" eventKey="1">Přidat Joke</Nav.Link>
+      </Nav.Item>
+
+    </Nav>
     )
 }
 
-export default Nav
+export default Navigation
