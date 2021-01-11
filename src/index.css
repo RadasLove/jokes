@@ -28,9 +28,27 @@ section {
   font-weight: 700;
 }
 
+.nav-link {
+  font-size: 1.3rem;
+}
+
 @media (max-width: 480px) {
   .mobile_fix {
     width: 80% !important;
+  }
+
+  .logo-mobile {
+    order: 3;
+    padding: 2rem 0rem;
+    margin-bottom: -3rem;
+  }
+
+  .nav-link {
+    font-size: 1.5rem;
+  }
+
+  .list-group-item {
+    border: 0px;
   }
 }
 
@@ -38,9 +56,9 @@ section {
   cursor: pointer;
 }
 .cursor-pointer:hover {
-  color: #0056b3!important;
+  color: #0056b3 !important;
 }
 
 .remove:hover {
-  color: red!important;
+  color: red !important;
 }
